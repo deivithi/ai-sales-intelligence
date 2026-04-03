@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sales Intelligence Reports | Know What Your Competitors Are Doing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255,255,255,0.95);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 80px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: #667eea;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .price-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00c853, #00e676);
+            color: #1a1a2e;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,200,83,0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,200,83,0.5);
+        }
+        
+        /* Target Audience */
+        .audience {
+            background: white;
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #1a1a2e;
+            margin-bottom: 40px;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .audience-item {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+            border-radius: 16px;
+            border: 1px solid #e8e8ff;
+        }
+        
+        .audience-item h3 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Report Contents */
+        .contents {
+            background: #f8f9ff;
+            padding: 80px 0;
+        }
+        
+        .contents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .content-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+        
+        .content-card h3 {
+            color: #1a1a2e;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content-card p {
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        /* Sample Report Preview */
+        .sample-report {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .sample-box {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .sample-box h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .sample-box p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .sample-link {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 35px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s;
+        }
+        
+        .sample-link:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Features */
+        .features {
+            background: white;
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 12px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+        
+        /* Pricing */
+        .pricing {
+            background: #1a1a2e;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #2a2a4e 0%, #1a1a2e 100%);
+            border: 2px solid #667eea;
+            border-radius: 24px;
+            padding: 50px;
+        }
+        
+        .pricing-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .price {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #00c853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .price-note {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features {
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .pricing-features li::before {
+            content: "\2713";
+            color: #00c853;
+            font-weight: bold;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: #1a1a2e;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-main-button {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .cta-main-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f0f1a;
+            color: rgba(255,255,255,0.6);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .price-tag {
+                font-size: 1.5rem;
+            }
+            
+            .price {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">AI Sales Intel</div>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>AI Sales Intelligence Reports<br><span>Know What Your Competitors Are Doing</span></h1>
+            <p>Get actionable competitive intelligence on AI sales tools, LLM pricing, feature gaps, and market positioning. Make informed decisions, faster.</p>
+            <div class="price-tag">$49.99</div>
+            <br><br>
+            <a href="https://buy.stripe.com/dRmeV73qi7aB5yr6HP2ZO05" class="cta-button">Get Your Report Now</a>
+        </div>
+    </section>
+    
+    <!-- Target Audience -->
+    <section class="audience">
+        <div class="container">
+            <h2 class="section-title">Who This Report Is For</h2>
+            <div class="audience-grid">
+                <div class="audience-item">
+                    <h3>SaaS Founders</h3>
+                    <p>Understand the competitive landscape and position your product effectively against AI-native competitors.</p>
+                </div>
+                <div class="audience-item">
+                    <h3>Heads of Sales</h3>
+                    <p>Identify the right AI tools and strategies to boost your team's productivity and pipeline.</p>
+                </div>
+                <div class="audience-item">
+                    <h3>GTM Leaders</h3>
+                    <p>Get market intelligence to craft winning positioning and go-to-market strategies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Report Contents -->
+    <section class="contents">
+        <div class="container">
+            <h2 class="section-title">What You Get in Each Report</h2>
+            <div class="contents-grid">
+                <div class="content-card">
+                    <h3>Pricing Analysis</h3>
+                    <p>Detailed breakdown of competitor pricing strategies, from budget tools to enterprise solutions. Know where the market is heading.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Feature Matrices</h3>
+                    <p>Side-by-side comparison of capabilities across AI sales tools. Identify gaps you can exploit and features that matter most.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Competitive Landscape</h3>
+                    <p>Map of the entire AI sales ecosystem: LLMs, frameworks, tools, and emerging players shaping the market in 2026.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Market Gaps</h3>
+                    <p>Uncover opportunities the market hasn't solved yet. Find your unique positioning before competitors do.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Positioning Recommendations</h3>
+                    <p>Strategic advice on where to position your product, which segments to target, and how to differentiate effectively.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Trend Analysis</h3>
+                    <p>Deep dive into Agentic AI trends, SDR agents, and what's actually working vs. what's hype in AI sales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sample Report Preview -->
+    <section class="sample-report">
+        <div class="container">
+            <div class="sample-box">
+                <h2>Q1 2026 Sample Report Available</h2>
+                <p>Get a 15-page deep dive into AI Sales Tools market covering LLMs, 30+ tools, pricing tiers, market gaps, and strategic implications.</p>
+                <a href="relatorio-amostra-2026-Q1.md" class="sample-link">View Sample Report</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why This Report?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">T</div>
+                    <span>Actionable insights, not just data</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">R</div>
+                    <span>Updated quarterly</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">S</div>
+                    <span>Sources verified and cited</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">F</div>
+                    <span>Focus on real ROI impact</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section class="pricing" id="payment">
+        <div class="container">
+            <div class="pricing-card">
+                <h2>One Report</h2>
+                <div class="price">$49.99</div>
+                <p class="price-note">One-time payment, instant delivery</p>
+                <ul class="pricing-features">
+                    <li>Full competitive intelligence report</li>
+                    <li>Pricing analysis & market mapping</li>
+                    <li>Feature matrices & gap analysis</li>
+                    <li>Positioning recommendations</li>
+                    <li>Sources & verification included</li>
+                    <li>Delivered in PDF format</li>
+                </ul>
+                <a href="https://buy.stripe.com/dRmeV73qi7aB5yr6HP2ZO05" class="cta-button">Buy Now - $49.99</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Stop Guessing. Start Knowing.</h2>
+            <p>Get the intelligence you need to make strategic decisions with confidence.</p>
+            <a href="https://buy.stripe.com/dRmeV73qi7aB5yr6HP2ZO05" class="cta-main-button">Get Started for $49.99</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>AI Sales Intelligence Reports | Q1 2026 Edition</p>
+            <p style="margin-top: 10px;">Questions? <a href="mailto:contact@example.com">Contact us</a></p>
+        </div>
+    </footer>
+</body>
+</html>
